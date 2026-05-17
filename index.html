@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Pakistan Studies Test</title>
+
+<style>
+body{
+    font-family: Arial;
+    background:#f0f2f5;
+    padding:20px;
+}
+
+.container{
+    max-width:700px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+h1{
+    text-align:center;
+}
+
+.question{
+    font-size:22px;
+    margin-bottom:20px;
+}
+
+.option{
+    background:#eee;
+    padding:12px;
+    margin:10px 0;
+    border-radius:10px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.option:hover{
+    background:#dcdcdc;
+}
+
+button{
+    padding:12px 20px;
+    font-size:18px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    background:#007bff;
+    color:white;
+    margin-top:20px;
+}
+
+#result{
+    text-align:center;
+    font-size:28px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Pakistan Studies Test</h1>
+
+<div id="quiz"></div>
+
+<button id="nextBtn">Next</button>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+
+const questions = [
+
+{
+q:"When was Pakistan Resolution passed?",
+options:["1947","1940","1930","1956"],
+answer:"1940"
+},
+
+{
+q:"Who was first Prime Minister of Pakistan?",
+options:["Ayub Khan","Liaqat Ali Khan","Yahya Khan","Bhutto"],
+answer:"Liaqat Ali Khan"
+},
+
+{
+q:"Who founded Indian National Congress?",
+options:["A.O. Hume","Sir Syed","Iqbal","Jinnah"],
+answer:"A.O. Hume"
+},
+
+{
+q:"When did Quaid-e-Azam die?",
+options:["1948","1947","1951","1938"],
+answer:"1948"
+},
+
+{
+q:"Capital of Sindh is?",
+options:["Hyderabad","Karachi","Lahore","Quetta"],
+answer:"Karachi"
+},
+
+{
+q:"Who presented Pakistan Resolution?",
+options:["Iqbal","Sir Syed","Fazal ul Haque","Liaqat Ali Khan"],
+answer:"Fazal ul Haque"
+},
+
+{
+q:"When was first Constitution passed?",
+options:["1973","1962","1956","1949"],
+answer:"1956"
+},
+
+{
+q:"Who is pioneer of Aligarh Movement?",
+options:["Sir Syed Ahmad Khan","Jinnah","Iqbal","Bhutto"],
+answer:"Sir Syed Ahmad Khan"
+},
+
+{
+q:"Old name of Faisalabad is?",
+options:["Lyallpur","Jamesabad","Multan","Rawalpindi"],
+answer:"Lyallpur"
+},
+
+{
+q:"Who was first Governor General of Pakistan?",
+options:["Ayub Khan","Liaqat Ali Khan","Muhammad Ali Jinnah","Nazimuddin"],
+answer:"Muhammad Ali Jinnah"
+}
+
+];
+
+let currentQuestion = 0;
+let score = 0;
+let selected = "";
+
+const quiz = document.getElementById("quiz");
+const nextBtn = document.getElementById("nextBtn");
+const result = document.getElementById("result");
+
+function loadQuestion(){
+
+selected = "";
+
+let q = questions[currentQuestion];
+
+quiz.innerHTML = `
+<div class="question">
+Q${currentQuestion+1}. ${q.q}
+</div>
+
+${q.options.map(option => `
+<div class="option" onclick="selectOption(this,'${option}')">
+${option}
+</div>
+`).join("")}
+`;
+
+}
+
+function selectOption(element, option){
+
+selected = option;
+
+document.querySelectorAll(".option").forEach(opt=>{
+opt.style.background="#eee";
+});
+
+element.style.background="#90ee90";
+
+}
+
+nextBtn.onclick = function(){
+
+if(selected===""){
+alert("Select an answer first!");
+return;
+}
+
+if(selected === questions[currentQuestion].answer){
+score++;
+}
+
+currentQuestion++;
+
+if(currentQuestion < questions.length){
+loadQuestion();
+}
+else{
+showResult();
+}
+
+}
+
+function showResult(){
+
+quiz.style.display="none";
+nextBtn.style.display="none";
+
+result.innerHTML = `
+<h2>Test Finished</h2>
+<p>Your Score: ${score} / ${questions.length}</p>
+`;
+
+}
+
+loadQuestion();
+
+</script>
+
+</body>
+</html>
